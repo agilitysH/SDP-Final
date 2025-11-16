@@ -1,14 +1,13 @@
 package Observer;
 
 import java.util.List;
-
-import AbstractFactory.Device;
+import AbstractFactory.DeviceBase;
 
 public class EnergySensor implements Sensor {
-    private List<Device> devices;
+    private List<DeviceBase> devices;
     private int powerLimit;
 
-    public EnergySensor(List<Device> devices, int powerLimit) {
+    public EnergySensor(List<DeviceBase> devices, int powerLimit) {
         this.devices = devices;
         this.powerLimit = powerLimit;
     }
@@ -17,7 +16,8 @@ public class EnergySensor implements Sensor {
     public void update(Event event) {
         int total = 0;
 
-        for (Device device : devices) {
+        for (DeviceBase device : devices) {
+            
             total += device.getPowerConsumption();
         }
 
