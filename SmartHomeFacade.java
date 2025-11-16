@@ -9,7 +9,7 @@ import Builder.*;
 
 public class SmartHomeFacade {
 
-    private List<Device> devices = new ArrayList<>();
+    private List<DeviceBase> devices = new ArrayList<>();
     private Scanner scanner = new Scanner(System.in);
     private Owner owner;
 
@@ -67,7 +67,6 @@ public class SmartHomeFacade {
         }
     }
 
-    
     private void addSensorMenu() {
         System.out.println("Add Sensor:");
         System.out.println("1. Temperature Sensor");
@@ -88,7 +87,6 @@ public class SmartHomeFacade {
         System.out.println("Sensor added: " + sensor.getName());
     }
 
-   
     public void addDeviceMenu() {
         System.out.println("Which company device you want to add?");
         System.out.println("1. Samsung");
@@ -109,7 +107,7 @@ public class SmartHomeFacade {
                 return;
         }
 
-        Device device = createDevice(company);
+        DeviceBase device = createDevice(company);
 
         if (device != null) {
             devices.add(device);
@@ -117,7 +115,7 @@ public class SmartHomeFacade {
         }
     }
 
-    public Device createDevice(Company company) {
+    public DeviceBase createDevice(Company company) {
         System.out.println("Select device type to add:");
         System.out.println("1. Smart Camera");
         System.out.println("2. Smart Light");
@@ -128,18 +126,17 @@ public class SmartHomeFacade {
         int deviceChoice = Integer.parseInt(scanner.nextLine());
 
         switch (deviceChoice) {
-            case 1: return company.createSmartCamera();
-            case 2: return company.createSmartLight();
-            case 3: return company.createSmartMusic();
-            case 4: return company.createSmartThermostat();
-            case 5: return company.createSmartLock();
+            case 1: return company.createCamera();
+            case 2: return company.createLight();
+            case 3: return company.createMusic();
+            case 4: return company.createThermostat();
+            case 5: return company.createLock();
             default:
                 System.out.println("Invalid choice");
                 return null;
         }
     }
 
-    
     private void turnOnDeviceMenu() {
         if (devices.isEmpty()) {
             System.out.println("No devices available!");
@@ -157,7 +154,7 @@ public class SmartHomeFacade {
             return;
         }
 
-        Device device = devices.get(choice);
+        DeviceBase device = devices.get(choice);
         device.turnOn();
         notifyEvent(new Event(device.getName() + " turned ON"));
         System.out.println(device.getName() + " is now ON");
@@ -180,15 +177,14 @@ public class SmartHomeFacade {
             return;
         }
 
-        Device device = devices.get(choice);
+        DeviceBase device = devices.get(choice);
         device.turnOff();
         notifyEvent(new Event(device.getName() + " turned OFF"));
         System.out.println(device.getName() + " is now OFF");
     }
 
-    
     public void applyDecorator() {
-        for (Device device : devices) {
+        for (DeviceBase device : devices) {
             System.out.println("Apply special functionality to " + device.getName() + "? (yes/no)");
             String response = scanner.nextLine();
 
@@ -210,12 +206,10 @@ public class SmartHomeFacade {
         }
     }
 
-   
     public void applyStrategy() {
         deviceStrategy.execute();
     }
 
-   
     public void notifyEvent(Event event) {
         observerManager.notifyObservers(event);
     }
