@@ -1,10 +1,8 @@
 package AbstractFactory.Samsung;
-
 import AbstractFactory.SmartCamera;
 import AbstractFactory.DeviceBase;
-
+import AbstractFactory.visitors.DeviceVisitor;
 public class SamsungCamera implements SmartCamera, DeviceBase {
-
     private String name = "Samsung Camera";
     private int power = 50;
 
@@ -26,5 +24,9 @@ public class SamsungCamera implements SmartCamera, DeviceBase {
     @Override
     public int getPowerConsumption() {
         return power;
+    }
+    @Override
+    public void accept(DeviceVisitor visitor) {
+        visitor.visit(this);
     }
 }

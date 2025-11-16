@@ -2,6 +2,7 @@ package AbstractFactory.Apple;
 
 import AbstractFactory.SmartMusic;
 import AbstractFactory.DeviceBase;
+import AbstractFactory.visitors.DeviceVisitor;
 
 public class AppleMusic implements SmartMusic, DeviceBase {
 
@@ -26,5 +27,9 @@ public class AppleMusic implements SmartMusic, DeviceBase {
     @Override
     public int getPowerConsumption() {
         return power;
+    }
+    @Override
+    public void accept(DeviceVisitor visitor) {
+        visitor.visit(this);
     }
 }

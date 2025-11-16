@@ -2,6 +2,7 @@ package AbstractFactory.Samsung;
 
 import AbstractFactory.SmartThermostat;
 import AbstractFactory.DeviceBase;
+import AbstractFactory.visitors.DeviceVisitor;
 
 public class SamsungThermostat implements SmartThermostat, DeviceBase {
 
@@ -33,5 +34,9 @@ public class SamsungThermostat implements SmartThermostat, DeviceBase {
     @Override
     public int getPowerConsumption() {
         return power;
+    }
+    @Override
+    public void accept(DeviceVisitor visitor) {
+        visitor.visit(this);
     }
 }

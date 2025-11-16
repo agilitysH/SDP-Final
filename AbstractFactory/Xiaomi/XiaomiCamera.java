@@ -2,6 +2,7 @@ package AbstractFactory.Xiaomi;
 
 import AbstractFactory.SmartCamera;
 import AbstractFactory.DeviceBase;
+import AbstractFactory.visitors.DeviceVisitor;
 
 public class XiaomiCamera implements SmartCamera, DeviceBase {
 
@@ -26,5 +27,9 @@ public class XiaomiCamera implements SmartCamera, DeviceBase {
     @Override
     public int getPowerConsumption() {
         return power;
+    }
+    @Override
+    public void accept(DeviceVisitor visitor) {
+        visitor.visit(this);
     }
 }

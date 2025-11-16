@@ -2,6 +2,8 @@ package AbstractFactory.Apple;
 
 import AbstractFactory.SmartThermostat;
 import AbstractFactory.DeviceBase;
+import AbstractFactory.visitors.DeviceVisitor;
+
 
 public class AppleThermostat implements SmartThermostat, DeviceBase {
 
@@ -34,5 +36,9 @@ public class AppleThermostat implements SmartThermostat, DeviceBase {
     @Override
     public int getPowerConsumption() {
         return power;
+    }
+    @Override
+    public void accept(DeviceVisitor visitor) {
+        visitor.visit(this);
     }
 }

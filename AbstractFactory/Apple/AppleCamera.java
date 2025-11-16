@@ -2,6 +2,7 @@ package AbstractFactory.Apple;
 
 import AbstractFactory.SmartCamera;
 import AbstractFactory.DeviceBase;
+import AbstractFactory.visitors.DeviceVisitor;
 
 public class AppleCamera implements SmartCamera, DeviceBase {
 
@@ -26,5 +27,10 @@ public class AppleCamera implements SmartCamera, DeviceBase {
     @Override
     public int getPowerConsumption() {
         return power;
+    }
+
+    @Override
+    public void accept(DeviceVisitor visitor) {
+        visitor.visit(this);
     }
 }

@@ -1,8 +1,8 @@
 package AbstractFactory.Apple;
-
 import AbstractFactory.Device;
 
-public class AppleRefrigerator implements Device {
+
+public class AppleRefrigerator implements  Device {
     private final int powerConsumption = 150;
     private boolean isOn = false;
     @Override
@@ -23,5 +23,6 @@ public class AppleRefrigerator implements Device {
     public void turnOff() {
         isOn = false;
     }
+
 }
 

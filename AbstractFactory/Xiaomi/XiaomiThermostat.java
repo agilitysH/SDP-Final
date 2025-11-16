@@ -2,6 +2,7 @@ package AbstractFactory.Xiaomi;
 
 import AbstractFactory.SmartThermostat;
 import AbstractFactory.DeviceBase;
+import AbstractFactory.visitors.DeviceVisitor;
 
 public class XiaomiThermostat implements SmartThermostat, DeviceBase {
 
@@ -33,5 +34,9 @@ public class XiaomiThermostat implements SmartThermostat, DeviceBase {
     @Override
     public int getPowerConsumption() {
         return power;
+    }
+    @Override
+    public void accept(DeviceVisitor visitor) {
+        visitor.visit(this);
     }
 }

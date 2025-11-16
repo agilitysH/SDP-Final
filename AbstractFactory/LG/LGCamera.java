@@ -2,6 +2,7 @@ package AbstractFactory.LG;
 
 import AbstractFactory.SmartCamera;
 import AbstractFactory.DeviceBase;
+import AbstractFactory.visitors.DeviceVisitor;
 
 public class LGCamera implements SmartCamera, DeviceBase {
 
@@ -26,5 +27,9 @@ public class LGCamera implements SmartCamera, DeviceBase {
     @Override
     public int getPowerConsumption() {
         return power;
+    }
+    @Override
+    public void accept(DeviceVisitor visitor) {
+        visitor.visit(this);
     }
 }

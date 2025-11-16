@@ -2,6 +2,7 @@ package AbstractFactory.Samsung;
 
 import AbstractFactory.SmartLight;
 import AbstractFactory.DeviceBase;
+import AbstractFactory.visitors.DeviceVisitor;
 
 public class SamsungLight implements SmartLight, DeviceBase {
 
@@ -26,5 +27,9 @@ public class SamsungLight implements SmartLight, DeviceBase {
     @Override
     public int getPowerConsumption() {
         return power;
+    }
+    @Override
+    public void accept(DeviceVisitor visitor) {
+        visitor.visit(this);
     }
 }

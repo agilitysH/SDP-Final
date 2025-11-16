@@ -2,6 +2,7 @@ package AbstractFactory.Samsung;
 
 import AbstractFactory.SmartMusic;
 import AbstractFactory.DeviceBase;
+import AbstractFactory.visitors.DeviceVisitor;
 
 public class SamsungMusic implements SmartMusic, DeviceBase {
 
@@ -26,5 +27,9 @@ public class SamsungMusic implements SmartMusic, DeviceBase {
     @Override
     public int getPowerConsumption() {
         return power;
+    }
+    @Override
+    public void accept(DeviceVisitor visitor) {
+        visitor.visit(this);
     }
 }

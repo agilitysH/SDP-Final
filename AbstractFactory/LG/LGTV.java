@@ -1,7 +1,5 @@
 package AbstractFactory.LG;
-
 import AbstractFactory.Device;
-
 public class LGTV implements Device {
     private final int powerConsumption = 100;
     private boolean isOn = false;

@@ -2,6 +2,7 @@ package AbstractFactory.Xiaomi;
 
 import AbstractFactory.SmartLock;
 import AbstractFactory.DeviceBase;
+import AbstractFactory.visitors.DeviceVisitor;  // ← Импорт
 
 public class XiaomiLock implements SmartLock, DeviceBase {
 
@@ -36,5 +37,9 @@ public class XiaomiLock implements SmartLock, DeviceBase {
     @Override
     public int getPowerConsumption() {
         return power;
+    }
+    @Override
+    public void accept(DeviceVisitor visitor) {
+        visitor.visit(this);
     }
 }

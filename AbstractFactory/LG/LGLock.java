@@ -2,6 +2,7 @@ package AbstractFactory.LG;
 
 import AbstractFactory.SmartLock;
 import AbstractFactory.DeviceBase;
+import AbstractFactory.visitors.DeviceVisitor;
 
 public class LGLock implements SmartLock, DeviceBase {
 
@@ -37,5 +38,9 @@ public class LGLock implements SmartLock, DeviceBase {
     @Override
     public int getPowerConsumption() {
         return power;
+    }
+    @Override
+    public void accept(DeviceVisitor visitor) {
+        visitor.visit(this);
     }
 }

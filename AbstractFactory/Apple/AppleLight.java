@@ -2,6 +2,7 @@ package AbstractFactory.Apple;
 
 import AbstractFactory.SmartLight;
 import AbstractFactory.DeviceBase;
+import AbstractFactory.visitors.DeviceVisitor;
 
 public class AppleLight implements SmartLight, DeviceBase {
 
@@ -26,5 +27,9 @@ public class AppleLight implements SmartLight, DeviceBase {
     @Override
     public int getPowerConsumption() {
         return power;
+    }
+    @Override
+    public void accept(DeviceVisitor visitor) {
+        visitor.visit(this);
     }
 }
