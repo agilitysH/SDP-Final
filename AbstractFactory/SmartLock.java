@@ -1,6 +1,6 @@
 package AbstractFactory;
 
-public interface SmartLock {
+public interface SmartLock extends DeviceBase {
     public void open();
     public void closed();
 }
