@@ -4,7 +4,7 @@ public class OwnerBuilder {
     private String name;
     private int age;
 
-    public OwnerBuilder(String name) {
+    public OwnerBuilder name(String name) {
         this.name = name;
         return this;
     }
