@@ -1,5 +1,5 @@
 package AbstractFactory;
 
-public interface SmartThermostat {
+public interface SmartThermostat extends DeviceBase{
     public void setTemperature(int temperature);
 }
