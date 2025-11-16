@@ -5,4 +5,5 @@ public interface Device {
     void turnOn();
     void turnOff();
     int getPowerConsumption();
+
 }
