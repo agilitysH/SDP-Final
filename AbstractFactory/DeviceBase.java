@@ -1,8 +1,9 @@
 package AbstractFactory;
 
-public interface DeviceBase {
+public interface Device {
+    String getName();
     void turnOn();
     void turnOff();
-    String getName();
-}
+    int getPowerConsumption();
 
+}
