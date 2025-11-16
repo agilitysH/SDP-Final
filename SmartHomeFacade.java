@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.Scanner;
 import Builder.*;
 import AbstractFactory.*;
+import Observer.*;
 
 public class SmartHomeFacade {
     private List<Device> devices = new ArrayList<>();
