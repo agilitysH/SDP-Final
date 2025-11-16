@@ -1,17 +1,23 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import Builder.*;
+
+import AbstractFactory.Factory.*;
 import AbstractFactory.*;
 import Observer.*;
+import Builder.*;
 
 public class SmartHomeFacade {
+
     private List<Device> devices = new ArrayList<>();
     private Scanner scanner = new Scanner(System.in);
     private Owner owner;
 
     private SamsungFactory samsungFactory;
     private LGFactory lgFactory;
+    private AppleFactory appleFactory;
+    private XiaomiFactory xiaomiFactory;
+
     private ObserverManager observerManager;
     private Strategy deviceStrategy;
     private int powerLimit = 1000;
@@ -19,6 +25,9 @@ public class SmartHomeFacade {
     public SmartHomeFacade() {
         this.samsungFactory = new SamsungFactory();
         this.lgFactory = new LGFactory();
+        this.appleFactory = new AppleFactory();
+        this.xiaomiFactory = new XiaomiFactory();
+
         this.observerManager = new ObserverManager();
         this.deviceStrategy = new DefaultDeviceStrategy();
     }
@@ -26,12 +35,10 @@ public class SmartHomeFacade {
     public void initializeHome() {
         System.out.println("Welcome, please, enter your name");
         OwnerBuilder ownerBuilder = new OwnerBuilder();
-        String name = scanner.nextLine();
-        ownerBuilder.name(name);
+        ownerBuilder.name(scanner.nextLine());
 
         System.out.println("Please, enter your age");
-        int age = Integer.parseInt(scanner.nextLine());
-        ownerBuilder.age(age);
+        ownerBuilder.age(Integer.parseInt(scanner.nextLine()));
 
         this.owner = ownerBuilder.build();
         System.out.println("Creating smart home for " + owner.getName());
@@ -60,6 +67,7 @@ public class SmartHomeFacade {
         }
     }
 
+    
     private void addSensorMenu() {
         System.out.println("Add Sensor:");
         System.out.println("1. Temperature Sensor");
@@ -80,20 +88,28 @@ public class SmartHomeFacade {
         System.out.println("Sensor added: " + sensor.getName());
     }
 
+   
     public void addDeviceMenu() {
         System.out.println("Which company device you want to add?");
         System.out.println("1. Samsung");
         System.out.println("2. LG");
+        System.out.println("3. Apple");
+        System.out.println("4. Xiaomi");
 
         int choice = Integer.parseInt(scanner.nextLine());
-        Device device = null;
+        Company company = null;
 
-        if (choice == 1) device = createDevice(samsungFactory);
-        else if (choice == 2) device = createDevice(lgFactory);
-        else {
-            System.out.println("Invalid choice");
-            return;
+        switch (choice) {
+            case 1: company = samsungFactory; break;
+            case 2: company = lgFactory; break;
+            case 3: company = appleFactory; break;
+            case 4: company = xiaomiFactory; break;
+            default:
+                System.out.println("Invalid choice");
+                return;
         }
+
+        Device device = createDevice(company);
 
         if (device != null) {
             devices.add(device);
@@ -103,21 +119,27 @@ public class SmartHomeFacade {
 
     public Device createDevice(Company company) {
         System.out.println("Select device type to add:");
-        System.out.println("1. TV");
-        System.out.println("2. Refrigerator");
+        System.out.println("1. Smart Camera");
+        System.out.println("2. Smart Light");
+        System.out.println("3. Smart Music");
+        System.out.println("4. Smart Thermostat");
+        System.out.println("5. Smart Lock");
 
         int deviceChoice = Integer.parseInt(scanner.nextLine());
-        Device device = null;
 
         switch (deviceChoice) {
-            case 1: device = company.createTV(); break;
-            case 2: device = company.createRefrigerator(); break;
-            default: System.out.println("Invalid choice");
+            case 1: return company.createSmartCamera();
+            case 2: return company.createSmartLight();
+            case 3: return company.createSmartMusic();
+            case 4: return company.createSmartThermostat();
+            case 5: return company.createSmartLock();
+            default:
+                System.out.println("Invalid choice");
+                return null;
         }
-
-        return device;
     }
 
+    
     private void turnOnDeviceMenu() {
         if (devices.isEmpty()) {
             System.out.println("No devices available!");
@@ -164,6 +186,7 @@ public class SmartHomeFacade {
         System.out.println(device.getName() + " is now OFF");
     }
 
+    
     public void applyDecorator() {
         for (Device device : devices) {
             System.out.println("Apply special functionality to " + device.getName() + "? (yes/no)");
@@ -187,14 +210,15 @@ public class SmartHomeFacade {
         }
     }
 
+   
     public void applyStrategy() {
         deviceStrategy.execute();
     }
 
+   
     public void notifyEvent(Event event) {
         observerManager.notifyObservers(event);
     }
 
-    public void shutdownHome() {
-    }
+    public void shutdownHome() { }
 }
