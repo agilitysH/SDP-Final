@@ -1,6 +1,6 @@
 package AbstractFactory;
 
-public interface SmartCamera {
+public interface SmartCamera extends DeviceBase  {
     public void turnOn();
     public void  turnOff();
 }
